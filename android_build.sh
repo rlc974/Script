@@ -1,5 +1,6 @@
 #! /bin/sh
-
+echo -e "---------------Android ->AOSP<- Building----------------"
+sleep 3
 #Warming format
 if [ -z $1 ]; then 
 echo -e "Usage : $0 path repository\n"
