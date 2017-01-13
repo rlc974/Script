@@ -12,15 +12,21 @@ PATH_BUILD=$1
 let "THREAD_NB=26" #Fixed for me
 
 #Genrate fake env
-echo -e "Generate fake env"
+echo -e "--Generate fake env--"
 sleep 3
 cd $PATH_BUILD
 cd venv/ && source bin/activate
 
+#Prepare env
+cd $PATH_BUILD
+echo -e "--Prepare android env--"
+sleep 3
+source build/envsetup.sh
+
 #CLEAN UP
 ##Clean manifests previews device repo
 cd $PATH_BUILD
-echo -e "Some clean up..."
+echo -e "--Some clean up...--"
 
 #RoomService
 cd .repo/local_manifests/
@@ -31,15 +37,20 @@ cd $PATH_BUILD
 fi
 
 #Previous build
-cd $PATH_BUILD
-echo -e "Prepare android env"
-sleep 3
-source build/envsetup.sh
-echo -e "Clean waste of last build"
+while [ "$CLEAN" != "y" ] && [ "$CLEAN" != "Y" ] && [ "$CLEAN" != "N" ] && [ "$CLEAN" != "n" ]
+do
+read -p "Do you want to clean up previous builds (y|n) ?" CLEAN
+done
+
+case $CLEAN in 
+		y | Y)
+echo -e "Cleaning waste of last build"
 sleep 3
 make clean
 make clobber
 ccache -C
+esac
+
 
 #Sync source
 echo -e "Sync repo with source"
