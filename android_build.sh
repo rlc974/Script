@@ -66,4 +66,12 @@ read -p "Enter your device " DEVICE
 brunch $DEVICE
 sleep 3 
 
-echo -e "Your build is ready, grab it, flash it ! "
+#Move build to specific folder
+echo -e "Move build to a specific folder..."
+cd ../
+FOLDER_NAME="$DEVICE flashable"
+mkdir "$FOLDER_NAME"
+cd "$FOLDER_NAME"
+cp $PATH_BUILD/out/target/product/$DEVICE/omni-*.zip "$PWD"
+
+echo -e "Your build is ready, grab it in $FOLDER_NAME, flash it ! "
