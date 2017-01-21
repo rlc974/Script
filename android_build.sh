@@ -51,11 +51,18 @@ make clobber
 ccache -C
 esac
 
-
 #Sync source
-echo -e "Sync repo with source"
-repo sync -j$THREAD_NB
+while [ "$SYNC" != "y" ] && [ "$SYNC" != "Y" ] && [ "$SYNC" != "N" ] && [ "$SYNC" != "n" ]
+do
+read -p "Do you want to sync repositories (y|n) ?" SYNC
+done
+
+case $SYNC in 
+		y | Y)
+echo -e "Synchronizing sources"
 sleep 3
+repo sync -j$THREAD_NB
+esac
 
 #Building
 echo -e "---------------------------------------------"
