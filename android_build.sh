@@ -1,5 +1,5 @@
 #! /bin/sh
-echo -e "---------------Android ->AOSP<- Building----------------"
+echo -e "---------------Android ->Omnirom<- Building----------------"
 sleep 3
 #Warming format
 if [ -z $1 ]; then 
