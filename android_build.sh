@@ -30,12 +30,12 @@ cd $PATH_BUILD
 echo -e "--Some clean up...--"
 
 #RoomService
-cd .repo/local_manifests/
-if [ -e roomservice.xml ]; then
-rm -rf roomservice.xml
-echo -e "roomservice.xml delected !"
-cd $PATH_BUILD
-fi
+#cd .repo/local_manifests/
+#if [ -e roomservice.xml ]; then
+#rm -rf roomservice.xml
+#echo -e "roomservice.xml delected !"
+#cd $PATH_BUILD
+#fi
 
 #Previous build
 while [ "$CLEAN" != "y" ] && [ "$CLEAN" != "Y" ] && [ "$CLEAN" != "N" ] && [ "$CLEAN" != "n" ]
