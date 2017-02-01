@@ -1,31 +1,31 @@
 #! /bin/sh
 echo -e "---------------Android ->Omnirom<- Building----------------"
 sleep 3
-#Warming format
+# Warming format
 if [ -z $1 ] || [ -z $2 ]; then 
 echo -e "Usage : $0 \"path repository\" \"device name\"\n"
 exit 0
 fi
 
-#For script 
+# For script 
 PATH_BUILD=$1
 let "THREAD_NB=26" #Fixed for me
 DEVICE=$2
 
-#Genrate fake env
+# Genrate fake env
 echo -e "--Generate fake env--"
 sleep 3
 cd $PATH_BUILD
 cd venv/ && source bin/activate
 
-#Prepare env
+# Prepare env
 cd $PATH_BUILD
 echo -e "--Prepare android env--"
 sleep 3
 source build/envsetup.sh
 
-#CLEAN UP
-##Clean manifests previews device repo
+# CLEAN UP
+## Clean manifests previews device repo
 cd $PATH_BUILD
 echo -e "--Some clean up...--"
 
@@ -37,7 +37,7 @@ echo -e "--Some clean up...--"
 #cd $PATH_BUILD
 #fi
 
-#Previous build
+# Previous build
 while [ "$CLEAN" != "y" ] && [ "$CLEAN" != "Y" ] && [ "$CLEAN" != "N" ] && [ "$CLEAN" != "n" ]
 do
 read -p "Do you want to clean up previous builds (y|n) ?" CLEAN
@@ -52,7 +52,7 @@ make clobber
 ccache -C
 esac
 
-#Sync source
+# Sync source
 while [ "$SYNC" != "y" ] && [ "$SYNC" != "Y" ] && [ "$SYNC" != "N" ] && [ "$SYNC" != "n" ]
 do
 read -p "Do you want to sync repositories (y|n) ?" SYNC
@@ -65,16 +65,16 @@ sleep 3
 repo sync -j$THREAD_NB
 esac
 
-#Building
+# Building
 echo -e "-----------------------------------------------------------------"
 echo -e "---------------Start Building Omnirom for $DEVICE----------------"
 echo -e "-----------------------------------------------------------------"
 
-#read -p "Enter your device " DEVICE
+# Launch building
 brunch $DEVICE
 sleep 3 
 
-#Move build to specific folder
+# Move build to specific folder
 echo -e "Move build to a specific folder..."
 cd ../
 FOLDER_NAME="$DEVICE flashable"
