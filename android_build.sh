@@ -2,14 +2,15 @@
 echo -e "---------------Android ->Omnirom<- Building----------------"
 sleep 3
 #Warming format
-if [ -z $1 ]; then 
-echo -e "Usage : $0 path repository\n"
+if [ -z $1 ] || [ -z $2 ]; then 
+echo -e "Usage : $0 \"path repository\" \"device name\"\n"
 exit 0
 fi
 
 #For script 
 PATH_BUILD=$1
 let "THREAD_NB=26" #Fixed for me
+DEVICE=$2
 
 #Genrate fake env
 echo -e "--Generate fake env--"
@@ -65,11 +66,11 @@ repo sync -j$THREAD_NB
 esac
 
 #Building
-echo -e "---------------------------------------------"
-echo -e "---------------Start Building----------------"
-echo -e "---------------------------------------------"
+echo -e "-----------------------------------------------------------------"
+echo -e "---------------Start Building Omnirom for $DEVICE----------------"
+echo -e "-----------------------------------------------------------------"
 
-read -p "Enter your device " DEVICE
+#read -p "Enter your device " DEVICE
 brunch $DEVICE
 sleep 3 
 
