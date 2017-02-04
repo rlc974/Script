@@ -1,4 +1,4 @@
-#! bin/sh
+#! /bin/sh
 # Syntaxe information
 if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]; then
 echo -e "Usage : $0 \"Name of repository\" \"List of project\" \"Name of the git remote\"\n"
