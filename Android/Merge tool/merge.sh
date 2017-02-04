@@ -12,8 +12,9 @@ ANDROID_BRANCH=android-7.1 # FIXED FOR OMNIROM
 PATH_BUILD=$1
 PROJECT_LIST=`cat $2`
 GIT_REMOTE=$3
-MESSAGE=Automatically merge
+MESSAGE="Automatically\ merge"
 
+echo -e "--------------Start merging $3--------------\n"
 
 # Beginning merge
 for PROJECT in $PROJECT_LIST
@@ -22,13 +23,21 @@ cd $PATH_BUILD
 # Check if project exist
 if [ -e $PROJECT ]; then
 cd $PATH_BUILD$PROJECT
+
+echo -e "\n-Merge $PROJECT"
+
 git fetch $GIT_REMOTE
 git checkout $MY_GIT/$ANDROID_BRANCH
 git merge -m "$MESSAGE" $GIT_REMOTE/$ANDROID_BRANCH
+
 git push $MY_GIT HEAD:$ANDROID_BRANCH
-sleep 3
+
+sleep 1
 else 
 echo -e "$PROJECT does not exist, finished.."
 exit 0
 fi
+
 done
+
+echo -e "\n--------------Merge is finished--------------\n"
