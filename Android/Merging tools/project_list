@@ -5,3 +5,4 @@ packages/apps/Settings/
 system/sepolicy/
 frameworks/base/
 vendor/omni/
+kernel/oneplus/msm8996/
