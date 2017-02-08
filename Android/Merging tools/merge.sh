@@ -12,7 +12,7 @@ ANDROID_BRANCH=android-7.1 # FIXED FOR OMNIROM
 PATH_BUILD=$1
 PROJECT_LIST=`cat $2`
 GIT_REMOTE=$3
-MESSAGE="Automatically\ merge"
+#MESSAGE="Automatically\ merge"
 
 echo -e "--------------Start merging $3--------------\n"
 
@@ -28,7 +28,7 @@ echo -e "\n-Merge $PROJECT"
 
 git fetch $GIT_REMOTE
 git checkout $MY_GIT/$ANDROID_BRANCH
-git merge -m "$MESSAGE" $GIT_REMOTE/$ANDROID_BRANCH
+git merge $GIT_REMOTE/$ANDROID_BRANCH --no-edit
 
 git push $MY_GIT HEAD:$ANDROID_BRANCH
 
