@@ -6,3 +6,8 @@ system/sepolicy/
 frameworks/base/
 vendor/omni/
 kernel/oneplus/msm8996/
+packages/apps/ContactsCommon/
+packages/apps/PhoneCommon/
+packages/apps/Contacts/
+packages/apps/Dialer/
+system/core/
