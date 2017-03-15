@@ -1,34 +1,40 @@
 #!/bin/bash
 
 if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]; then
-echo -e "Usage : $0 \"Name of working tree\" \"apps_target\" \"frameworks_target\"\n"
+echo -e "Usage : $0 \"Name of working tree\" \"targets\" \"whiteList\"\n"
 fi
 
 # Script variables
 WORKING_TREE=$1
-APPS_TARGET=`cat $2`
-FRAMEWORKS_TARGET=`cat $3`
+TARGETS=`cat $2`
+WHITELIST=`cat $3`
 
 OUT=/home/laurent/android_themes_ressources
-mkdir $OUT
+mkdir -p $OUT
 
 cd $OUT
 rm -rf *
 
 # APPS process
-for APPS in $APPS_TARGET
+for APPS in $TARGETS
 do
-mkdir -p $APPS
-cp -r $WORKING_TREE/$APPS/res $OUT/$APPS/
-cp -r $WORKING_TREE/$APPS/AndroidManifest.xml $OUT/$APPS/AndroidManifest.xml
-
-done
-
-# APPS process
-for FRAMEWORKS in $FRAMEWORKS_TARGET
+cd $OUT
+mkdir -p $APPS/res
+cd $WORKING_TREE/$APPS/res
+for SUB_DIR in `ls`
 do
-mkdir -p $FRAMEWORKS
-cp -r $WORKING_TREE/$FRAMEWORKS/res $OUT/$FRAMEWORKS/
-cp -r $WORKING_TREE/$FRAMEWORKS/AndroidManifest.xml $OUT/$FRAMEWORKS/AndroidManifest.xml
+for PATTERN in $WHITELIST
+do
+if [ "$PATTERN" != "values" ]; then
+if echo "$SUB_DIR" | grep -q "$PATTERN"; then
+mkdir -p $OUT/$APPS/res/$SUB_DIR
+cp -r $SUB_DIR $OUT/$APPS/res/ 2> /dev/null
+fi
+fi
 done
-
+done
+mkdir -p $OUT/$APPS/res/values
+cp -r values $OUT/$APPS/res/ 2> /dev/null
+cd ../
+cp -r AndroidManifest.xml $OUT/$APPS/AndroidManifest.xml 2> /dev/null
+done

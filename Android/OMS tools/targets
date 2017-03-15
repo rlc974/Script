@@ -20,5 +20,8 @@ packages/apps/SnapdragonCamera
 packages/apps/SoundRecorder
 packages/apps/Stk
 packages/apps/WallpaperPicker
-
-
+frameworks/base/packages/DocumentsUI
+frameworks/base/packages/EasterEgg
+frameworks/base/packages/SettingsLib
+frameworks/base/packages/SystemUI
+frameworks/base/core/res
