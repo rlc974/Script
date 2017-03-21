@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Script variables
+PATH_LIST=`cat $1`
+WORKING_TREE=$2
+TARGETS_FILE=`cat $3`
+RESOURCE_FOLDER_NAME="res"
+BLACKLIST="res/values"
+
+# Define output 
+OUTPUT_PATH=$WORKING_TREE/packages/apps/Themes_resources
+
+
+# Clean function 
+clean_all(){
+local output_path=$1
+cd $output_path && rm -rf *
+}
+
+# Output function 
+create_output(){
+local path_list=$1
+local output_path=$2
+local resource_folder_name=$3
+
+mkdir -p $output_path
+echo -e "Create output paths"
+for path in $path_list
+	do
+		mkdir -p $output_path/$path/res
+	done
+}
+
+# Blacklist function 
+#TODO
+
+# Process function
+process(){
+local path_list=$1
+local working_tree=$2
+local target_file=$3
+local output_path=$4
+local blacklist=$5
+
+for path in $path_list
+	do
+		for target in $target_file
+				do
+					if [ $target != $blacklist ]; then  # use blacklist function for future
+					 	if echo `ls -R $working_tree/$path` | grep -q "$target"; then
+							cp -r $working_tree/$path/$target* $output_path/$path/`echo -e "$target" | grep -o '[a-zA-Z]*/'` 2> /dev/null
+						fi
+					else 
+						cp -r $working_tree/$path/$target $output_path/$path/`echo -e "$target" | grep -o '[a-zA-Z]*/'` 2> /dev/null
+					fi
+			done
+	done
+}
+
+# Main program
+
+## Cleaning
+clean_all $OUTPUT_PATH
+
+## Initialization 
+echo -e "Move to working tree"
+cd $WORKING_TREE
+create_output "$PATH_LIST" $OUTPUT_PATH $RESOURCE_FOLDER_NAME
+
+## Processing
+echo -e "processing"
+process "$PATH_LIST" $WORKING_TREE "$TARGETS_FILE" $OUTPUT_PATH "$BLACKLIST"
+echo -e "processing done ! "
+
+
