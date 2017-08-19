@@ -1,5 +1,4 @@
 build/
-device/oneplus/oneplus3/
 frameworks/native/
 packages/apps/Settings/
 system/sepolicy/
